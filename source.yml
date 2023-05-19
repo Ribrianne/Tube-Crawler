@@ -1,0 +1,24 @@
+# Tube-Crawler Configuration
+
+# General settings
+# supported options: musics, podcasts, movies, shows, subscriptions
+media_type: Music
+
+# Music settings
+Musics:
+  format: mp3
+  directory: /path/to/download/directory/musics
+
+# Podcast settings
+podcast:
+  enabled: true
+  source: YouTube
+  directory: /path/to/download/directory/podcast
+
+# Media type selection
+media_type_file: /path/to/media/type.txt
+
+# Subscription settings
+subscription:
+  enabled: true
+  directory: /path/to/download/directory/subscription
