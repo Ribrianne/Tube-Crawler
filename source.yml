@@ -1,24 +1,57 @@
-# Tube-Crawler Configuration
+  # Tube-Crawler Configuration
 
-# General settings
-# supported options: musics, podcasts, movies, shows, subscriptions
-media_type: Music
+  # field descriptions:
+  # format:
+  # which format do you want to download the media in? (e.g. mp4, mp3, webm), if set to recommended, it will go with yt-dlp defaults.
 
-# Music settings
-Musics:
-  format: mp3
-  directory: /path/to/download/directory/musics
+  # directory:
+  # path to the directory where you want to store downloaded files
 
-# Podcast settings
-podcast:
-  enabled: true
-  source: YouTube
-  directory: /path/to/download/directory/podcast
+  # query_type:
+  # supported options: query, url, playlist, channel_url
 
-# Media type selection
-media_type_file: /path/to/media/type.txt
+  # quality:
+  # supported options: highest, 1080p, 720p, lowest
 
-# Subscription settings
-subscription:
-  enabled: true
-  directory: /path/to/download/directory/subscription
+  # subtitle:
+  # supported options: yes/no, Default is "no"
+
+  # queries:
+  # search for anything to download in any media type!
+
+  # General settings
+  # supported options: musics, podcasts, movies, shows, subscriptions, vidoes
+  media_type: Music
+
+  # Musics settings
+  Musics:
+    format: recommended
+    directory: /run/media/hakuneko/HardDisk/db/Tube-Crawler/Musics
+    queries:
+
+  # generic videos settings
+    format: recommended
+    query_type:  
+    quality:
+    subtitle:
+    directory: /run/media/hakuneko/HardDisk/db/Tube-Crawler/Podcasts
+    queries:
+
+
+  # Podcasts settings
+  podcasts:
+    format: recommended
+    query_type:
+    quality:
+    subtitle:
+    directory: /run/media/hakuneko/HardDisk/db/Tube-Crawler/Podcasts
+    queries:
+
+  # Subscriptions settings
+  subscriptions:
+    format: recommended
+    query_type:
+    quality:
+    subtitle:
+    directory: /run/media/hakuneko/HardDisk/db/Tube-Crawler/Subscriptions
+    queries:
