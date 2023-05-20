@@ -1,5 +1,5 @@
 import yaml
-from modules import music
+from modules.music import music
 from validators import music_validator
 from handlers.status_handler import print_status
 
