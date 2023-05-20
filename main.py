@@ -1,9 +1,9 @@
 import yaml
 from modules import music
 from validators import music_validator
-from handlers.status_handler import print_status as status
+from handlers.status_handler import print_status
 
-status("Opening source.yml file")
+print_status("Opening source.yml file")
 
 # read the source.yml file
 with open('./sources/source.yml', 'r') as file:
@@ -18,7 +18,7 @@ if media_type == 'Music':
     music_validator.validate_music_config(music_config)
     music.download_music(music_config)
 
-status("Finished!")
+print_status("Tube Crawler has crawled its way to the end!")
 
 ## Add more later #FIXME:
 #elif media_type == 'Podcasts':
