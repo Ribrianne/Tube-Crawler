@@ -15,6 +15,6 @@ if media_type == 'Music':
     music_validator.validate_music_config(music_config)
     music.download_music(music_config)
 
-## Add more later
+## Add more later #FIXME:
 #elif media_type == 'Podcasts':
     #podcasts.download_podcasts(config['Podcasts'])
