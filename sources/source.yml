@@ -1,7 +1,7 @@
 # Tube-Crawler Configuration
 
 # field descriptions:
-# format: which format do you want to download the media in? (e.g., mp4, mp3, webm). If set to "recommended", it will use the default format.
+# format: which format do you want to download the media in? (e.g., mp4, mp3, webm)
 # directory: path to the directory where you want to store downloaded files
 # query_type: supported options: query, url, playlist, channel_url
 # quality: supported options: highest, 1080p, 720p, lowest
@@ -15,13 +15,13 @@ media_type: Music
 # Music settings
 Music:
   query_type: query
-  format: recommended
+  format: mp3
   directory: /run/media/hakuneko/HardDisk/db/Tube-Crawler/Music
   queries: /home/hakuneko/Documents/Scripts/Tube-Crawler/sources/music.txt
 
 # Generic videos settings
 Videos:
-  format: recommended
+  format: webm
   query_type:  
   quality:
   subtitle:
@@ -30,7 +30,7 @@ Videos:
 
 # Podcasts settings
 Podcasts:
-  format: recommended
+  format: webm
   query_type:
   quality:
   subtitle:
@@ -39,7 +39,7 @@ Podcasts:
 
 # Subscriptions settings
 Subscriptions:
-  format: recommended
+  format: webm
   query_type:
   quality:
   subtitle:
