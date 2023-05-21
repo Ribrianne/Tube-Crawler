@@ -4,6 +4,12 @@ from handlers.status_handler import print_status
 from modules.music import music
 
 def yt_download_handler(config, download_urls):
+    download_options = create_download_options(config, download_urls)
+    
+    with YoutubeDL(download_options) as ytdlp:
+        ytdlp.download(download_urls)
+
+def create_download_options(config, download_urls):
     download_format = config['format']
     query_type = config['query_type']
     download_directory = config['directory']
@@ -22,8 +28,5 @@ def yt_download_handler(config, download_urls):
         yml_config = yaml.safe_load(file)
         media_type = yml_config['media_type']
     if media_type == 'Music': download_options['format'] = 'bestaudio/best'
-
-    # with YoutubeDL(download_options) as ytdlp:
-    #     ytdlp.download(download_urls)
-
-    print(download_options)
+    
+    return download_options
