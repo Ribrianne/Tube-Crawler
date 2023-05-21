@@ -4,20 +4,21 @@ from handlers.status_handler import print_status
 from modules.music import music
 
 def yt_download_handler(config, download_urls):
-    download_options = create_download_options(config, download_urls)
-    
-    with YoutubeDL(download_options) as ytdlp:
-        ytdlp.download(download_urls)
-
-def create_download_options(config, download_urls):
-    download_format = config['format']
     query_type = config['query_type']
-    download_directory = config['directory']
-
     print_status(f"Downloading {query_type} - Total {len(download_urls)} Queries")
 
+    for url in download_urls:
+        download_options = create_download_options(config)
+        with YoutubeDL(download_options) as ytdlp:
+            ytdlp.download(url)
+
+def create_download_options(config):
+    download_format = config['format']
+    download_directory = config['directory']
+
+
     download_options = {
-        'outtmpl': f'{download_directory}/{music.write_music_file_outtmpl()}',
+        'outtmpl': music.write_music_file_outtmpl(download_directory),
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': download_format,
