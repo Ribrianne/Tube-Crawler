@@ -17,18 +17,10 @@ media_type = config['media_type']
 match media_type:
     case 'Music':
         print_status(f"Detected Media Type: {media_type}")
-        
+
         music_validator.validate_music_config(music_config)
         music.download_music(music_config)
-    case 'Podcasts':
-        raise NotImplementedError()
-    case 'Videos':
-        raise NotImplementedError()        
-    case 'Subscriptions':
-        raise NotImplementedError()
-
-## Add more later #FIXME:
-#elif media_type == 'Podcasts':
-    #podcasts.download_podcasts(config['Podcasts'])
-
+    case _:
+        raise NotImplementedError(f"Downloading {media_type} is not implemented yet!")
+    
 print_status("Tube Crawler has crawled its way to the end!")
