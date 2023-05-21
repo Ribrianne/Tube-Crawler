@@ -19,3 +19,6 @@ def download_music(music_config):
             case _:
                 #TODO:
                 raise NotImplementedError(f"Downloading Music from {query_type} is not implemented yet!")
+            
+def write_music_file_outtmpl():
+    return "[0] [%(title)s].%(ext)s"

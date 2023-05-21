@@ -12,7 +12,7 @@ def validate_music_config(music_config):
             raise ValueError(f"Missing required field: {field} in source.yml - Music")
     
     # Validate values inside required fields
-    supported_formats = ['mp3', 'wav', 'flac']
+    supported_formats = ['mp3', 'wav', 'm4a']
     if music_config['format'] not in supported_formats:
         raise ValueError("Invalid format specified in Music - source.yml")
     
