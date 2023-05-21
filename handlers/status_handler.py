@@ -1,7 +1,7 @@
 import time, itertools
 from colorama import Fore, Style
 
-def print_status(status, color="normal", delay=1):
+def print_status(status, color="normal", delay=.3):
     colors = {
         "normal": Fore.GREEN,
         "warning": Fore.YELLOW,
