@@ -1,10 +1,12 @@
 from yt_dlp import YoutubeDL
-
 from handlers.status_handler import print_status
 
 def yt_download_handler(config, download_urls):
     download_format = config['format']
+    query_type = config['query_type']
     download_directory = config['directory']
+
+    print_status(f"Downloading {query_type} - Total {len(download_urls)} Queries")
 
     download_options = {
         'format': download_format,
