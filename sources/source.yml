@@ -9,12 +9,12 @@
 # queries: path to a text file containing the queries to search for
 
 # General settings
-# supported options: music, podcasts, movies, shows, subscriptions, videos
+# supported options: Music, Podcasts, Subscriptions, Videos
 media_type: Music
 
 # Music settings
 Music:
-  query_type: query
+  query_type: url
   format: mp3
   directory: /run/media/hakuneko/HardDisk/db/Tube-Crawler/Music
   queries: /home/hakuneko/Documents/Scripts/Tube-Crawler/sources/music.txt
