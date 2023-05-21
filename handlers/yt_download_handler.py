@@ -10,7 +10,11 @@ def yt_download_handler(config, download_urls):
     for url in download_urls:
         download_options = create_download_options(config)
         with YoutubeDL(download_options) as ytdlp:
-            ytdlp.download(url)
+            #TODO: unique identifier I made is working perfectly
+            # Now need to create a way to check duplicates in filenames / youtube-link
+            # before I create an unique identifier, otherwise everything can be messed up
+            # ytdlp.download(url)
+            print("ok")
 
 def create_download_options(config):
     download_format = config['format']
