@@ -4,17 +4,20 @@ from handlers.status_handler import print_status
 from modules.music import music
 
 def yt_download_handler(config, download_urls):
+    # update download_history.txt file from
+    # looking through video id of file names
+    # adding them in download_history.txt
+    # renaming every file using create_next_unique_id()
+    #TODO:
+#   update_download_history()
+
     query_type = config['query_type']
     print_status(f"Downloading {query_type} - Total {len(download_urls)} Queries")
 
     for url in download_urls:
         download_options = create_download_options(config)
         with YoutubeDL(download_options) as ytdlp:
-            #TODO: unique identifier I made is working perfectly
-            # Now need to create a way to check duplicates in filenames / youtube-link
-            # before I create an unique identifier, otherwise everything can be messed up
-            # ytdlp.download(url)
-            print("ok")
+            ytdlp.download(url)
 
 def create_download_options(config):
     download_format = config['format']
@@ -23,6 +26,7 @@ def create_download_options(config):
 
     download_options = {
         'outtmpl': music.write_music_file_outtmpl(download_directory),
+        'download_archive': f"{download_directory}/download_history.txt",
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': download_format,
