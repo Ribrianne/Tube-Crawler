@@ -1,7 +1,7 @@
 import yaml
 from yt_dlp import YoutubeDL
 from handlers.status_handler import print_status
-from modules.music import music
+from utils import utils
 
 def yt_download_handler(config, download_urls):
     # update download_history.txt file from
@@ -12,6 +12,7 @@ def yt_download_handler(config, download_urls):
 #   update_download_history()
 
     query_type = config['query_type']
+
     print_status(f"Downloading {query_type} - Total {len(download_urls)} Queries")
 
     for url in download_urls:
@@ -25,7 +26,7 @@ def create_download_options(config):
 
 
     download_options = {
-        'outtmpl': music.write_music_file_outtmpl(download_directory),
+        'outtmpl': utils.write_file_outtmpl(download_directory, download_format),
         'download_archive': f"{download_directory}/download_history.txt",
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
