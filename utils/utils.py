@@ -56,19 +56,18 @@ def extract_file_info(file_name):
     else:
         raise ValueError(f"file naming is inconsistent: {file_name}")
     
-# update download_history.txt file from
+# update .download_history.txt file from
 # looking through video id of file names
-# adding them in download_history.txt
+# adding them in .download_history.txt
 # renaming every file if unique_id got messed up!
 def update_download_history(file_extension, download_directory, download_history_txt_path):
-
-    print_status(f"Checking Unique IDs From {file_extension} files", delay=2)
-
-    fix_unique_ids(download_directory, file_extension)
-
-    print_status(f"Updating Download History: {download_history_txt_path}")
+    print_status("Updating Download History")
 
     if not os.path.isfile(download_history_txt_path):
+        # right now, if i delete the download history txt
+        # the program will think there's no history because
+        # of this condition, i need to do something about this
+        # when I get back TODO:
         print_status("No Previous Download History Found!")
     else:
         video_ids = []
@@ -78,11 +77,24 @@ def update_download_history(file_extension, download_directory, download_history
                 video_id = result["video_id"]
                 video_ids.append(f"youtube {video_id}")
 
-        with open(download_history_txt_path, 'w') as file:
-            for video_id in video_ids:
-                file.write(video_id + "\n")
+        number_of_download_history = len(open(download_history_txt_path, "r").readlines())
+        print(len(video_ids), number_of_download_history)
+        
+        if len(video_ids) != number_of_download_history:
+            print_status(f"Some {file_extension} files were deleted.", "warning")
+            print_status("Or, you modified .download_history.txt.", "warning")
 
-        print_status(f"Updated Download History!")
+            print_status(f"Updating Unique IDs From {file_extension} files")
+            fix_unique_ids(download_directory, file_extension)
+
+            
+            with open(download_history_txt_path, "w") as file:
+                for video_id in video_ids:
+                    file.write(video_id + "\n")
+                print_status(f"Updated Download History!", "warning")
+        else:
+            print_status("Files are Untouched. Nothing Changed in Download Histories!")
+
 
 # fix unique ids from files in a directory
 # by renaming them if nessesary
@@ -96,7 +108,7 @@ def fix_unique_ids(directory, file_extension):
         current_id = result["unique_id"]
 
         if current_id != expected_id:
-            print_status(f"Warning: Unique IDs are not Sorted!", color="warning")
+            print_status(f"ID No. [{current_id}] is not Sorted!", "warning")
 
             title = result["title"]
             video_id = result["video_id"]
