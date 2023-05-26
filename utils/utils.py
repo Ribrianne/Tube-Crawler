@@ -42,7 +42,7 @@ def create_next_unique_id(directory, file_format):
 #    list: A list containing the unique ID, title, and video ID.
 #    Returns None if the file name does not match the expected pattern.
 def extract_file_info(file_name):
-    pattern = r'\{(.*?)\}'  # Matches text inside square brackets
+    pattern = r'\{(.*?)\}' # Matches text inside square brackets
     matches = re.findall(pattern, file_name)
 
     if len(matches) == 3:
@@ -79,7 +79,7 @@ def update_download_history(file_extension, download_directory, download_history
                 video_ids.append(f"youtube {video_id}")
 
         number_of_download_history = len(open(download_history_txt_path, "r").readlines())
-        print(len(video_ids), number_of_download_history)
+        print_status(f"Total video_ids: {len(video_ids)}, Number Of Download History: {number_of_download_history}", "warning")
         
         if len(video_ids) != number_of_download_history:
             print_status(f"Some {file_extension} files were deleted.", "warning")
@@ -113,7 +113,11 @@ def fix_unique_ids(directory, file_extension):
 
             title = result["title"]
             video_id = result["video_id"]
-            new_file_name = f"[{expected_id}] [{title}] [{video_id}].{file_extension}"
+            
+            title = "{" + title + "}"
+            video_id = "{" + video_id + "}"
+            str_expected_id = "{" + str(expected_id) + "}"
+            new_file_name = f"{directory}/{str_expected_id} {title} {video_id}.{file_extension}"
             os.rename(os.path.join(directory, file), os.path.join(directory, new_file_name))
 
         expected_id += 1
