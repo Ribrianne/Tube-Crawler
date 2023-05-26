@@ -16,7 +16,7 @@
   Music:
     query_type: url
     format: m4a # Because m4a is generally better than mp3
-    directory: /run/media/hakuneko/HardDisk/db/Tube-Crawler/Music
+    directory: /home/hakuneko/Music
     queries: /home/hakuneko/Documents/Scripts/Tube-Crawler/sources/music.txt
 
   # Generic videos settings

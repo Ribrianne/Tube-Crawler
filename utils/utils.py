@@ -8,12 +8,13 @@ from handlers.status_handler import print_status
 #    '/path/to/directory/[unique_id] [title] [video_id].mp3'
 def write_file_outtmpl(directory, file_format):
     unique_id = create_next_unique_id(directory, file_format)
-    title = "%(title)s"
+    unique_id = "{" + str(unique_id) + "}"
+    title = "{%(title)s}"
     ext = "%(ext)s"
-    video_id = "%(id)s"
+    video_id = "{%(id)s}"
 
-    template = f"{directory}/[{unique_id}] [{title}] [{video_id}].{ext}"
-
+    template = f"{directory}/{unique_id} {title} {video_id}.{ext}"
+    
     return template
 
 # Generates the next unique ID for a file based on the existing files in the directory.
@@ -41,7 +42,7 @@ def create_next_unique_id(directory, file_format):
 #    list: A list containing the unique ID, title, and video ID.
 #    Returns None if the file name does not match the expected pattern.
 def extract_file_info(file_name):
-    pattern = r'\[(.*?)\]'  # Matches text inside square brackets
+    pattern = r'\{(.*?)\}'  # Matches text inside square brackets
     matches = re.findall(pattern, file_name)
 
     if len(matches) == 3:
