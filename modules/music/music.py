@@ -34,6 +34,9 @@ def download_music(music_config):
         match query_type:
             case 'url':
                 yt_download_handler(music_config, queries, create_download_options)
+            case 'query':
+                #TODO: Work On this case.
+                print("working on this feature")
             case _:
                 #TODO:
                 raise NotImplementedError(f"Downloading Music from {query_type} is not implemented yet!")
