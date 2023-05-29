@@ -123,7 +123,7 @@ def fix_unique_ids(directory, file_extension):
         expected_id += 1
 
 # Extract Urls from a YouTube Playlist using yt-dlp
-def extract_youtube_playlist_urls(playlist_url):
+def extract_youtube_playlist_urls(playlist_urls):
     # Configuration opitons for yt-dlp
     extract_options = {
         "dump_single_json": True,
@@ -133,13 +133,18 @@ def extract_youtube_playlist_urls(playlist_url):
     }
 
     with yt_dlp.YoutubeDL(extract_options) as ydl:
+            extracted_urls = []
             try:
                 # Extract Playlist Information
-                result = ydl.extract_info(playlist_url, download=False)
+                for playlist_url in playlist_urls:
+                    result = ydl.extract_info(playlist_url, download=False)
+                    
+                    # Extract the URLs from the playlist entries
+                    extracted_urls_from_playlist = [entry["url"] for entry in result["entries"]]
+                    extracted_urls.extend(extracted_urls_from_playlist)
+                    
+
             except yt_dlp.utils.DownloadError:
-                print_status("Error: Unable to extract playlist URLs", "warning")
-                return []
+                raise ValueError("Error: Unable to extract playlist URLs")
             
-            # Extract the URLs from the playlist entries
-            urls = [entry["url"] for entry in result["entries"]]
-            return urls
+            return extracted_urls
