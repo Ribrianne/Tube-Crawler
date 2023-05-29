@@ -1,4 +1,4 @@
-import os, re, yt_dlp
+import os, re, yt_dlp, pprint
 from handlers.status_handler import print_status
 
 # Generates a template for the output file name based on the given directory and file format.
@@ -148,3 +148,78 @@ def extract_youtube_playlist_urls(playlist_urls):
                 raise ValueError("Error: Unable to extract playlist URLs")
             
             return extracted_urls
+    
+# Searches YouTube for videos based on the provided query and returns a list of video URLs.
+#     Args:
+#         query (str): The search query to look for on YouTube.
+#         max_results (int, optional): The maximum number of results to fetch. Defaults to 5.
+#     Returns:
+#         list: A list of video URLs matching the search query.
+def search_youtube(search_queries, max_results=1):
+    extracted_urls = []
+
+    search_options = {
+        "quiet": True,
+        "extract_flat": True,
+        "dump_single_json": True,
+        "max_downloads": max_results,
+        "match_filter": yt_dlp.utils.match_filter_func("is_video")
+    }
+
+    with yt_dlp.YoutubeDL(search_options) as ydl:
+        for search_query in search_queries:
+            search_results = ydl.extract_info(f"ytsearch{max_results}:{search_query}", download=False)
+            videos = search_results.get("entries", [])
+
+            if videos:
+                for video in videos:
+                    title = video["title"]
+                    duration_seconds = format_duration(video["duration"])
+                    view_count = format_view_count(int(video["view_count"]))
+
+                    print_status(f"Title: {title} Duration: {duration_seconds} View Count: {view_count}",
+                                  color="cyan", delay=0)
+                    extracted_urls.append(video["url"])
+            else:
+                raise ValueError(f"No Videos Found For {search_query}")
+    
+    return extracted_urls
+
+# Formats the given view count into a more human-readable format.
+def format_view_count(view_count):
+    if view_count < 1000:
+        return str(view_count)  # Return as is if less than 1000
+
+    # Use a list of suffixes to represent large numbers (e.g., 1M for 1 million)
+    suffixes = ['', 'K', 'M', 'B', 'T']
+    suffix_index = 0
+
+    # Divide the view count by 1000 until it becomes less than 1000
+    while view_count >= 1000:
+        view_count /= 1000.0
+        suffix_index += 1
+
+    # Format the view count with a maximum of two decimal places
+    formatted_count = '{:.2f}'.format(view_count)
+
+    # Concatenate the formatted count with the appropriate suffix
+    return f'{formatted_count}{suffixes[suffix_index]}'
+
+# Formats the given duration in seconds into a more human-readable format.
+def format_duration(duration):
+    seconds = int(duration) % 60
+    minutes = int(duration / 60) % 60
+    hours = int(duration / 3600) % 24
+    days = int(duration / 86400)
+
+    formatted_duration = ""
+    if days > 0:
+        formatted_duration += f"{days}d "
+    if hours > 0:
+        formatted_duration += f"{hours}h "
+    if minutes > 0:
+        formatted_duration += f"{minutes}m "
+    if seconds > 0:
+        formatted_duration += f"{seconds}s"
+
+    return formatted_duration.strip()

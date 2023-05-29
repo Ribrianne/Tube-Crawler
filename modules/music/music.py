@@ -32,13 +32,25 @@ def download_music(music_config):
     with open(queries_file, 'r') as file:
         queries = file.read().splitlines()
         
+        print_status(f"Extracting urls from Query Type: {query_type}")
         match query_type:
-            case 'url':
+            case "url":
                 yt_download_handler(music_config, queries, create_download_options)
-            case 'playlist':
-                print_status("Extracting Url From Playlists")
-                playlist_urls = utils.extract_youtube_playlist_urls(queries)
+                
+            case "playlist":
+                playlist_urls = utils.extract_youtube_playlist_urls(playlist_urls=queries)
                 yt_download_handler(music_config, playlist_urls, create_download_options)
+
+            case "query":
+                urls_from_queries = utils.search_youtube(search_queries=queries)
+
+                prompt_message = "Press ENTER to continue or any other key to stop: "
+                if input(f"\n {prompt_message} \n"):
+                    print_status("Interuppted By User.")
+                    raise SystemExit
+
+                yt_download_handler(music_config, urls_from_queries, create_download_options)
+
+            #TODO:
             case _:
-                #TODO:
                 raise NotImplementedError(f"Downloading Music from {query_type} is not implemented yet!")
