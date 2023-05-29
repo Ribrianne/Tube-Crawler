@@ -1,4 +1,4 @@
-import yaml, yt_dlp
+import yt_dlp
 from handlers.status_handler import print_status
 from utils import utils
 
