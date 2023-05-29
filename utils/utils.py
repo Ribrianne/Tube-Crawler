@@ -1,4 +1,4 @@
-import os, re
+import os, re, yt_dlp
 from handlers.status_handler import print_status
 
 # Generates a template for the output file name based on the given directory and file format.
@@ -121,3 +121,25 @@ def fix_unique_ids(directory, file_extension):
             os.rename(os.path.join(directory, file), os.path.join(directory, new_file_name))
 
         expected_id += 1
+
+# Extract Urls from a YouTube Playlist using yt-dlp
+def extract_youtube_playlist_urls(playlist_url):
+    # Configuration opitons for yt-dlp
+    extract_options = {
+        "dump_single_json": True,
+        "extract_flat": True,
+        "flat_playlist": True,
+        "ignore_errors": True,
+    }
+
+    with yt_dlp.YoutubeDL(extract_options) as ydl:
+            try:
+                # Extract Playlist Information
+                result = ydl.extract_info(playlist_url, download=False)
+            except yt_dlp.utils.DownloadError:
+                print_status("Error: Unable to extract playlist URLs", "warning")
+                return []
+            
+            # Extract the URLs from the playlist entries
+            urls = [entry["url"] for entry in result["entries"]]
+            return urls
