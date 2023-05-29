@@ -5,6 +5,7 @@ def print_status(status, color="normal", delay=.3):
     colors = {
         "normal": Fore.GREEN,
         "warning": Fore.YELLOW,
+        "cyan": Fore.CYAN,
         "error": Fore.RED
     }
     color_code = colors.get(color.lower(), "")
