@@ -15,5 +15,5 @@ def yt_download_handler(config, download_urls, create_download_options):
 
     for url in download_urls:
         download_options = create_download_options()
-        with YoutubeDL(download_options) as ytdlp:
-            ytdlp.download(url)
+        with YoutubeDL(download_options) as ydl:
+            ydl.download(url)
