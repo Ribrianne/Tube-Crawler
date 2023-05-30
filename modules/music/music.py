@@ -1,4 +1,3 @@
-import pprint
 from handlers.status_handler import print_status
 from handlers.yt_download_handler import yt_download_handler
 from utils import utils
@@ -51,6 +50,9 @@ def download_music(music_config):
 
                 yt_download_handler(music_config, urls_from_queries, create_download_options)
 
-            #TODO:
+            case "channel_url":
+                urls_from_channel = utils.extract_youtube_channel_urls(channel_urls=queries)
+                yt_download_handler(music_config, urls_from_channel, create_download_options)
+
             case _:
-                raise NotImplementedError(f"Downloading Music from {query_type} is not implemented yet!")
+                raise ValueError(f"Wrong Query Type: {query_type}")

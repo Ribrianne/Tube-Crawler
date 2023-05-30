@@ -223,3 +223,25 @@ def search_youtube(search_queries, max_results=1):
         return formatted_duration.strip()
 
     return extracted_urls
+
+def extract_youtube_channel_urls(channel_urls):
+    extracted_urls = []
+
+    extract_options = {
+        "quiet": True,
+        "extract_flat": True,
+        "dump_single_json": True,
+    }
+
+    with yt_dlp.YoutubeDL(extract_options) as ydl:
+        for channel_url in channel_urls:
+            try:
+                videos = ydl.extract_info(channel_url, download=False)
+                for video in videos["entries"]:
+                    extracted_urls.append(video["url"])
+
+            except yt_dlp.DownloadError as e:
+                raise e
+    
+
+    return extracted_urls
