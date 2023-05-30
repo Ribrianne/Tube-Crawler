@@ -14,9 +14,9 @@
 
   # Music settings
   Music:
-    query_type: query
+    query_type: playlist
     format: m4a # Because m4a is generally better than mp3
-    directory: /home/hakuneko/Testing
+    directory: /home/hakuneko/Music
     queries: /home/hakuneko/Music/music.txt
 
   # Generic videos settings

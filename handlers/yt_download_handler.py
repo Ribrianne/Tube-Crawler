@@ -21,5 +21,8 @@ def yt_download_handler(config, download_urls, create_download_options):
                 error_message = str(e)
                 if "Video unavailable" in error_message:
                     print_status("Video Unavilable, Skipping Download", "warning", delay=3)
-                else:
-                    raise e
+                    continue
+                if "Private video" in error_message:
+                    print_status("Video is Private, Skipping Download", "warning", delay=3)
+                    continue
+                raise e
