@@ -1,5 +1,3 @@
-[![GitHub License](https://img.shields.io/github/license/YourUsername/YourRepository)](https://github.com/YourUsername/YourRepository/blob/main/LICENSE)
-
 # TubeCrawler - Archived Repository
 
 **Note: This repository has been archived and is no longer actively maintained. Feel free to fork and modify the codebase as needed.**
